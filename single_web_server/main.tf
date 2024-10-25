@@ -3,6 +3,18 @@ provider "aws" {
 
 }
 
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-hidayat"
+    key = "Learning/single_web_server/terraform.tfstate"
+    region = "us-east-1"
+
+    dynamodb_table = "terraform-state-lock"
+    encrypt = true
+    
+  }
+}
+
 resource "aws_instance" "test-srv" {
   ami                         = "ami-0866a3c8686eaeeba"
   instance_type               = "t2.micro"

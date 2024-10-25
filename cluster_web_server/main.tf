@@ -2,6 +2,19 @@ provider "aws" {
   region = "us-east-1"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-hidayat"
+    key    = "Learning/cluster_web_server/terraform.tfstate"
+    region = "us-east-1"
+
+    dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+
+  }
+}
+
+
 data "aws_vpc" "default" {
   default = true
 
